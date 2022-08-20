@@ -101,3 +101,25 @@ func (a TwitterApi) PostAccountUpdateProfile(v url.Values) (u User, err error) {
 	a.queryQueue <- query{a.baseUrl + "/account/update_profile.json", v, &u, _POST, response_ch}
 	return u, (<-response_ch).err
 }
+
+/*
+PostAccountUpdateProfileBanner: Updates active user profile banner with provided value
+Reference: https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile_banner
+*/
+func (a TwitterApi) PostAccountUpdateProfileBanner(v url.Values) (u User, err error) {
+	v = cleanValues(v)
+	response_ch := make(chan response)
+	a.queryQueue <- query{a.baseUrl + "/account/update_profile_banner.json", v, &u, _POST, response_ch}
+	return u, (<-response_ch).err
+}
+
+/*
+PostAccountUpdateProfileImage: Update active user profile image with provided value
+Reference: https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile_image
+*/
+func (a TwitterApi) PostAccountUpdateProfileImage(v url.Values) (u User, err error) {
+	v = cleanValues(v)
+	response_ch := make(chan response)
+	a.queryQueue <- query{a.baseUrl + "/account/update_profile_image.json", v, &u, _POST, response_ch}
+	return u, (<-response_ch).err
+}
